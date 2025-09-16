@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "pages/api/lead.ts": {
+      "maxDuration": 10
+    },
+    "pages/api/export-mail.ts": {
+      "maxDuration": 30
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/export-mail",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

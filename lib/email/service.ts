@@ -27,7 +27,7 @@ export class EmailService {
   private createTransporter() {
     switch (this.config.provider) {
       case 'sendgrid':
-        return nodemailer.createTransporter({
+        return nodemailer.createTransport({
           service: 'SendGrid',
           auth: {
             user: 'apikey',
@@ -37,7 +37,7 @@ export class EmailService {
 
       case 'mailgun':
         // Assuming Mailgun SMTP configuration
-        return nodemailer.createTransporter({
+        return nodemailer.createTransport({
           host: 'smtp.mailgun.org',
           port: 587,
           secure: false,
@@ -48,7 +48,7 @@ export class EmailService {
         })
 
       case 'resend':
-        return nodemailer.createTransporter({
+        return nodemailer.createTransport({
           host: 'smtp.resend.com',
           port: 465,
           secure: true,

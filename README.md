@@ -142,25 +142,52 @@ npx playwright test landing-page
 
 ## 🚀 배포
 
-### Vercel 배포
-1. Vercel 계정에 GitHub 리포지토리 연결
-2. 환경변수 설정 (Production)
-3. 자동 배포 완료
+### 빠른 배포 (Vercel)
+1. **GitHub에 코드 푸시**
+   ```bash
+   git remote add origin https://github.com/username/implant-healthysmile.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+2. **Vercel에서 Import**
+   - [Vercel 대시보드](https://vercel.com) → "New Project"
+   - GitHub 저장소 선택 → Import
+   - Framework: Next.js (자동 감지)
+
+3. **환경변수 설정** (Vercel Settings → Environment Variables)
+   ```bash
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=eyJ...
+   IP_HASH_SALT=random-32-character-string
+   MAIL_PROVIDER=sendgrid
+   MAIL_API_KEY=SG.your-api-key
+   MAIL_FROM=noreply@yourdomain.com
+   MAIL_TO=admin@yourdomain.com
+   NODE_ENV=production
+   ```
+
+4. **재배포** → 환경변수 설정 후 자동 재배포됨
+
+### 상세 배포 가이드
+더 자세한 배포 가이드는 [DEPLOYMENT.md](./DEPLOYMENT.md) 파일을 참고하세요.
 
 ### 크론 작업 설정
 `vercel.json`에 정의된 크론 작업이 자동으로 설정됩니다:
 - **스케줄**: 매일 00:00 UTC (한국시간 09:00)
 - **작업**: `/api/export-mail` 호출
+- **요구사항**: Vercel Pro 플랜 필요
 
-### 환경변수 (Production)
-Vercel 대시보드에서 다음 환경변수를 설정하세요:
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `IP_HASH_SALT`
-- `MAIL_PROVIDER`
-- `MAIL_API_KEY`
-- `MAIL_FROM`
-- `MAIL_TO`
+### 배포 확인 방법
+```bash
+# 배포된 사이트 테스트
+curl -X POST https://your-domain.vercel.app/api/lead \
+  -H "Content-Type: application/json" \
+  -d '{"name":"테스트","phone":"010-1234-5678","consent":true}'
+
+# 이메일 리포트 수동 실행
+curl https://your-domain.vercel.app/api/export-mail
+```
 
 ## 📊 데이터베이스 스키마
 

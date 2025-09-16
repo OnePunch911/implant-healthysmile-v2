@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "verify-env": "node scripts/verify-env.js",
+    "deploy:check": "npm run verify-env && npm run build && npm run test:e2e",
+    "deploy:vercel": "vercel --prod"
   },
   "dependencies": {
     "next": "14.0.0",

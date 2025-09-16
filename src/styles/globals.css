@@ -214,7 +214,7 @@ body {
   cursor: pointer;
 }
 
-.overlay-terms-content {
+.overlay-terms-content-v2 {
   position: absolute;
   top: 76%;
   left: 50%;
@@ -227,16 +227,16 @@ body {
   line-height: 1.1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid #ddd;
-  z-index: 100;
+  z-index: 1000;
 }
 
-.overlay-terms-content h4 {
+.overlay-terms-content-v2 h4 {
   margin-bottom: 0.5rem;
   color: #333;
   font-size: 0.875rem;
 }
 
-.overlay-terms-content ul {
+.overlay-terms-content-v2 ul {
   margin-left: 1rem;
   margin-bottom: 0.5rem;
 }

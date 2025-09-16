@@ -266,7 +266,7 @@ export default function Home() {
             </div>
 
             {showTerms && (
-              <div id="terms-content" className="overlay-terms-content">
+              <div id="terms-content" className="overlay-terms-content-v2">
                 <h4>개인정보 수집·이용 동의서</h4>
                 <ul>
                   <li><strong>수집항목:</strong> 이름, 전화번호</li>

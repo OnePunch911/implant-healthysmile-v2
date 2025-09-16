@@ -227,7 +227,7 @@ body {
   line-height: 1.1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid #ddd;
-  z-index: 30;
+  z-index: 100;
 }
 
 .overlay-terms-content h4 {

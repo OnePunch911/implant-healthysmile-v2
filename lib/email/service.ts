@@ -50,8 +50,8 @@ export class EmailService {
       case 'resend':
         return nodemailer.createTransport({
           host: 'smtp.resend.com',
-          port: 465,
-          secure: true,
+          port: 587,
+          secure: false,
           auth: {
             user: 'resend',
             pass: this.config.apiKey

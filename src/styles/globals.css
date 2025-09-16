@@ -270,7 +270,7 @@ body {
   cursor: pointer;
   display: block;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  z-index: 20;
+  z-index: 15;
 }
 
 .overlay-submit-button:hover:not(:disabled) {

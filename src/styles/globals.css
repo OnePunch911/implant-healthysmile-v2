@@ -294,7 +294,7 @@ body {
   display: block;
 }
 
-/* Success message */
+/* Success message - Updated for cache refresh */
 .success-section {
   background-color: #d4edda;
   border: 1px solid #c3e6cb;

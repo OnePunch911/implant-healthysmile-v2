@@ -191,7 +191,7 @@ export default function Home() {
       {/* Page 1 - Long vertical image */}
       <section className="page1-section" aria-label="임플란트 정보">
         <Image
-          src="/images/page1.jpeg"
+          src="/images/page1-1.jpeg"
           alt="임플란트 건강한미소 - 전문 임플란트 치료 정보"
           width={500}
           height={1200}

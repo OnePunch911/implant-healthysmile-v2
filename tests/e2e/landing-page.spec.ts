@@ -15,7 +15,7 @@ test.describe('Landing Page', () => {
     expect(imageBox?.width).toBeGreaterThan(300)
 
     // Verify image loads correctly
-    await expect(page1Image).toHaveAttribute('src', '/images/page1.jpeg')
+    await expect(page1Image).toHaveAttribute('src', '/images/page1-1.jpeg')
   })
 
   test('M1 - displays form sections in correct order', async ({ page }) => {

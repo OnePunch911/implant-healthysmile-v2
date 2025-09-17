@@ -200,7 +200,7 @@ export default function LandingPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preload" href="/images/page1-1.jpeg" as="image" fetchPriority="high" />
+        <link rel="preload" href="/images/page1-1.jpeg" as="image" />
       </Head>
       <div className="landing-container">
       {/* Page 1 - Long vertical image */}

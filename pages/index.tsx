@@ -1,5 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import Image from 'next/image'
+import Head from 'next/head'
 
 interface FormData {
   name: string
@@ -187,7 +188,16 @@ export default function Home() {
   }
 
   return (
-    <div className="landing-container">
+    <>
+      <Head>
+        <title>임플란트 건강한미소 - 상담신청</title>
+        <meta name="description" content="임플란트 전문 상담 신청" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preload" href="/images/page1-1.jpeg" as="image" fetchpriority="high" />
+      </Head>
+      <div className="landing-container">
       {/* Page 1 - Long vertical image */}
       <section className="page1-section" aria-label="임플란트 정보">
         <Image
@@ -321,6 +331,7 @@ export default function Home() {
           </button>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

@@ -229,7 +229,7 @@ body {
   line-height: 1.1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid #ddd;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .overlay-terms-content-v2 h4 {
@@ -280,7 +280,7 @@ body {
   cursor: pointer;
   display: block;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  z-index: 15;
+  z-index: 10;
 }
 
 .overlay-submit-button:hover:not(:disabled) {

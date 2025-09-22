@@ -188,8 +188,6 @@ export default function Home() {
 
   return (
     <div className="landing-container">
-      {/* DEPLOYMENT VERSION: 2025-09-22-FORCE-REDEPLOY */}
-
       {/* Page 1 - Long vertical image */}
       <section className="page1-section" aria-label="임플란트 정보">
         <Image
@@ -200,6 +198,7 @@ export default function Home() {
           className="page1-image"
           priority
         />
+        {/* Force deployment - version 20250922 */}
       </section>
 
       {/* Page 2 - Form section */}
@@ -300,7 +299,6 @@ export default function Home() {
                 </ul>
               </div>
             )}
-
             {/* Page 3 - Submit button overlay */}
             <button
               type="submit"

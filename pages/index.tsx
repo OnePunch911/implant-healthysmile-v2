@@ -198,6 +198,7 @@ export default function Home() {
           className="page1-image"
           priority
         />
+        {/* Force deployment - version 20250922 */}
       </section>
 
       {/* Page 2 - Form section */}

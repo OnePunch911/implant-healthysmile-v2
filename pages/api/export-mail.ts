@@ -73,7 +73,7 @@ export default async function handler(
     console.log(`Found ${leads.length} leads for export`)
 
     // Create Excel file
-    const excelBuffer = createExcelBuffer(leads)
+    const excelBuffer = await createExcelBuffer(leads)
 
     // Send email with Excel attachment
     await emailService.sendLeadReport(leads, excelBuffer)

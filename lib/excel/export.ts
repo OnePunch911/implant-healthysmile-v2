@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx'
+import ExcelJS from 'exceljs'
 import { LandingLead } from '../supabase/client'
 
 export interface ExcelData {
@@ -7,7 +7,7 @@ export interface ExcelData {
   '신청시간': string
 }
 
-export function createExcelBuffer(leads: LandingLead[]): Buffer {
+export async function createExcelBuffer(leads: LandingLead[]): Promise<Buffer> {
   // Convert leads to Excel data format
   const excelData: ExcelData[] = leads.map(lead => {
     // Convert UTC to Korea Standard Time (KST)
@@ -30,49 +30,42 @@ export function createExcelBuffer(leads: LandingLead[]): Buffer {
     }
   })
 
-  // Create workbook and worksheet
-  const workbook = XLSX.utils.book_new()
-  const worksheet = XLSX.utils.json_to_sheet(excelData)
+  // Create workbook
+  const workbook = new ExcelJS.Workbook()
 
-  // Set column widths for better readability
-  const columnWidths = [
-    { wch: 15 }, // 이름
-    { wch: 15 }, // 전화번호
-    { wch: 20 }, // 신청시간
-  ]
-  worksheet['!cols'] = columnWidths
-
-  // Style the header row
-  const headerStyle = {
-    font: { bold: true },
-    fill: { fgColor: { rgb: "E6E6FA" } },
-    border: {
-      top: { style: "thin" },
-      bottom: { style: "thin" },
-      left: { style: "thin" },
-      right: { style: "thin" }
-    }
-  }
-
-  // Apply header styling (if there's data)
-  if (excelData.length > 0) {
-    const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1:C1')
-    for (let col = range.s.c; col <= range.e.c; col++) {
-      const headerCell = worksheet[XLSX.utils.encode_cell({ r: 0, c: col })]
-      if (headerCell) {
-        headerCell.s = headerStyle
-      }
-    }
-  }
-
-  // Add worksheet to workbook
+  // Create main data worksheet
   const today = new Date()
   const kstToday = new Date(today.getTime() + (9 * 60 * 60 * 1000))
   const sheetName = kstToday.toISOString().split('T')[0]
+  const worksheet = workbook.addWorksheet(sheetName)
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, sheetName)
+  // Define columns
+  worksheet.columns = [
+    { header: '이름', key: '이름', width: 15 },
+    { header: '전화번호', key: '전화번호', width: 15 },
+    { header: '신청시간', key: '신청시간', width: 20 }
+  ]
 
-  // Add metadata sheet with summary
+  // Style the header row
+  worksheet.getRow(1).font = { bold: true }
+  worksheet.getRow(1).fill = {
+    type: 'pattern',
+    pattern: 'solid',
+    fgColor: { argb: 'FFE6E6FA' }
+  }
+  worksheet.getRow(1).border = {
+    top: { style: 'thin' },
+    left: { style: 'thin' },
+    bottom: { style: 'thin' },
+    right: { style: 'thin' }
+  }
+
+  // Add data rows
+  worksheet.addRows(excelData)
+
+  // Add metadata worksheet
+  const metadataSheet = workbook.addWorksheet('보고서_정보')
+
   const metadataData = [
     ['보고서 정보', ''],
     ['생성일시', kstToday.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })],
@@ -85,17 +78,18 @@ export function createExcelBuffer(leads: LandingLead[]): Buffer {
     ['신청시간', '상담 신청 접수 시간 (한국 표준시)']
   ]
 
-  const metadataSheet = XLSX.utils.aoa_to_sheet(metadataData)
-  metadataSheet['!cols'] = [{ wch: 15 }, { wch: 30 }]
-  XLSX.utils.book_append_sheet(workbook, metadataSheet, '보고서_정보')
+  metadataSheet.columns = [
+    { header: '', key: 'key', width: 15 },
+    { header: '', key: 'value', width: 30 }
+  ]
 
-  // Write workbook to buffer
-  const excelBuffer = XLSX.write(workbook, {
-    type: 'buffer',
-    bookType: 'xlsx'
+  metadataData.forEach(row => {
+    metadataSheet.addRow({ key: row[0], value: row[1] })
   })
 
-  return Buffer.from(excelBuffer)
+  // Write workbook to buffer
+  const buffer = await workbook.xlsx.writeBuffer()
+  return Buffer.from(buffer)
 }
 
 // Utility function to get date range for export
